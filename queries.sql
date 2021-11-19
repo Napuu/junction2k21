@@ -3,7 +3,6 @@ CREATE TABLE journeys IF NOT EXISTS (
     j_date DATE,
     start_location INT,
     end_location INT,
-    route LINESTRING,
     quantity INT
 )
 
