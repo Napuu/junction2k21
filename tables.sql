@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS journeys  (
 );
 
 CREATE TABLE IF NOT EXISTS route (
-    id INT PRIMARY KEY, -- alku- + loppupostinumero
+    id TEXT PRIMARY KEY, -- alku- + loppupostinumero
     geom Geometry(LINESTRING)
 );
+
