@@ -4,9 +4,8 @@ import { useDebounce } from "./hooks";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export const basemaps = [
-  { title: "Streets", url: "mapbox://styles/mapbox/streets-v11", icon: "mapbox/streets-v11" },
-  { title: "Satellite", url: "mapbox://styles/mapbox/satellite-v9", icon: "mapbox/satellite-v9" },
   { title: "Dark", url: "mapbox://styles/palikk/ckw20gafz6s7i14qe4z2qgsy9", icon: "palikk/ckw20gafz6s7i14qe4z2qgsy9" },
+  { title: "Streets", url: "mapbox://styles/mapbox/streets-v11", icon: "mapbox/streets-v11" },
 ];
 
 // No idea what is going on here.
