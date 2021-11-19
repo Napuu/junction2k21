@@ -1,0 +1,17 @@
+version: '2.1'
+services:
+  postgres:
+    image: kartoza/postgis:13
+    ports:
+      - "5432:5432"
+    environment:
+    - POSTGRES_PASS=junction
+    - POSTGRES_USER=junction
+    - POSTGRES_DBNAME=junction
+    volumes:
+      - ./tables.sql:/docker-entrypoint-initdb.d/setup-db.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-U", "junction"]
+      interval: 5s
+      timeout: 1s
+      retries: 2
