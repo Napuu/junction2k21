@@ -6,8 +6,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DatePicker';
 
-const DatePicker = () => {
-    const [value, setValue] = useState([new Date(), new Date()]);
+const DatePicker = ({value, setValue}) => {
     const theme = createTheme({
         components: {
             MuiIconButton: {
@@ -50,9 +49,11 @@ const DatePicker = () => {
         <ThemeProvider theme={theme}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
+                    minDate={new Date('2019-07-01T00:00:00')}
+                    maxDate={new Date('2019-12-31T23:59:59')}
                     label="Basic example"
                     value={value}
-                    inputFormat="dd.MM"
+                    inputFormat="dd.MM."
                     onChange={(newValue) => {
                         setValue(newValue);
                     }}
@@ -65,7 +66,6 @@ const DatePicker = () => {
                                 outline: 'none',
                                 width: '80%',
                                 height: '32px',
-
                             }} ref={inputRef} {...inputProps} />
                             {InputProps?.endAdornment}
                         </Box>

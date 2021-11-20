@@ -43,7 +43,9 @@ const StatsPanel = () => {
           <Box
             sx={{
               color: 'white',
+              fontSize: '24px',
               fontWeight: 'bold',
+              lineHeight: '25px',
               mx: 0.5,
             }}
           >

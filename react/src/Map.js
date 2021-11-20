@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoicGFsaWtrIiwiYSI6ImNrdzZ2bDZ2YzBzZ3oydnJoODB4cmMzbmsifQ.ry-Lc5GvubrOySwQUtbjOg";
-function Map() {
+function Map({dateValue}) {
   const location = useLocation();
   useEffect(() => {
     const index = basemaps.findIndex(b => b.title.toLocaleLowerCase() === location.pathname.split("/")[1]);
@@ -26,9 +26,9 @@ function Map() {
   const [viewport, setViewport] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
-    latitude: 65.41,
-    longitude: 25.88,
-    zoom: 4.3
+    latitude: 60.323284,
+    longitude: 24.904453,
+    zoom: 9.3
   });
 
   const [basemap, setBaseMap] = useState(basemaps[1].url);
@@ -52,16 +52,6 @@ function Map() {
   };
 
   return (<div>
-    <div style={{ position: "absolute", zIndex: 2, bottom: 30 }}>
-      <Controls
-        viewport={viewport}
-        basemap={basemap}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-        setBasemap={setBaseMap}
-        setAddingLocations={setAddingLocations}
-        addingLocations={addingLocations}
-      />
-    </div>
     <div style={{ position: 'absolute', top: 0, left: 0 }}>
       <ReactMapGL
         {...viewport}
@@ -71,10 +61,7 @@ function Map() {
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={nextViewport => setViewport(nextViewport)}
       >
-        <Routes>
-        <Route path="/:basemap/ships" element={<Ships viewState={viewport} />} />
-        <Route path="/:basemap/kissa" element={<Movement viewState={viewport} />} />
-        </Routes>
+        <Movement dateValue={dateValue} viewState={viewport} />
       </ReactMapGL>
     </div>
   </div>
