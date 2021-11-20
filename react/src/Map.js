@@ -4,6 +4,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { basemaps } from "./BasemapSelector";
 import Controls from './Controls';
 import Ships from "./experiments/Ships";
+import Movement from "./Movement";
 import {
   Routes,
   Route,
@@ -72,6 +73,7 @@ function Map() {
       >
         <Routes>
         <Route path="/:basemap/ships" element={<Ships viewState={viewport} />} />
+        <Route path="/:basemap/kissa" element={<Movement viewState={viewport} />} />
         </Routes>
       </ReactMapGL>
     </div>
