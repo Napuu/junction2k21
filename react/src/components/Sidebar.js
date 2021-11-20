@@ -5,7 +5,6 @@ import StatsPanel from './StatsPanel'
 import DatePanel from './DatePanel'
 import LevelPanel from './LevelPanel'
 import Stack from '@mui/material/Stack';
-import TestBox from './TestBox'
 
 
 const Sidebar = ({dateValue, setDateValue}) => (
