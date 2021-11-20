@@ -26,9 +26,9 @@ function Map({dateValue}) {
   const [viewport, setViewport] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
-    latitude: 65.41,
-    longitude: 25.88,
-    zoom: 4.3
+    latitude: 60.323284,
+    longitude: 24.904453,
+    zoom: 9.3
   });
 
   const [basemap, setBaseMap] = useState(basemaps[1].url);
@@ -52,16 +52,6 @@ function Map({dateValue}) {
   };
 
   return (<div>
-    <div style={{ position: "absolute", zIndex: 2, bottom: 30 }}>
-      <Controls
-        viewport={viewport}
-        basemap={basemap}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-        setBasemap={setBaseMap}
-        setAddingLocations={setAddingLocations}
-        addingLocations={addingLocations}
-      />
-    </div>
     <div style={{ position: 'absolute', top: 0, left: 0 }}>
       <ReactMapGL
         {...viewport}

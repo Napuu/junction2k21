@@ -41,27 +41,11 @@ export default function Layer({ viewState, dateValue }) {
           return polyline.toGeoJSON(line);
         })
       }
-      // console.log(routeJson);
-
-      //const coverage = await fetch("/4G_tahtiluokka_3_simplified.json");
-      //const coverageJson = await coverage.json();
-      //setCoverage(coverageJson);
-      //const routeJson = await fetched.json();
-      // add timestamps to each linestring
-      const cloned = _.cloneDeep(routeJson);
-      const newFeatures = _.reverse([...routeJson.features, ..._.reverse(cloned.features)]);
-      _.reverse(newFeatures);
-      const timestamps = newFeatures.map(feature => {
-        // console.log(feature);
+      const timestamps = routeJson.features.map(feature => {
         return _.range(0, feature.coordinates.length);
       });
-      // const lines = (await fetched.text()).split("\n");
-      // zip timestamps and features
-      const data = _.zip(timestamps, newFeatures).map(([timestamp, feature]) => {
-        const c = _.cloneDeep(feature.coordinates);
-        _.reverse(c);
-        //const coords = [...feature.geometry.coordinates, ...c];
-        return {waypoints: _.zip(timestamp, c).map(([timestamp, coordinates]) => {
+      const data = _.zip(timestamps, routeJson.features).map(([timestamp, feature]) => {
+        return {waypoints: _.zip(timestamp, feature.coordinates).map(([timestamp, coordinates]) => {
           return {
             coordinates,
             timestamp
@@ -101,7 +85,6 @@ export default function Layer({ viewState, dateValue }) {
     id: 'trips-layer',
     data,
     getPath: d => d.waypoints.map(p => p.coordinates),
-    // deduct start timestamp from each data point to avoid overflow
     getTimestamps: d => d.waypoints.map(p => p.timestamp),
     getColor: [92, 181, 249],
     opacity: 0.01,

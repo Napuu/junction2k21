@@ -5,7 +5,7 @@ import { HashRouter } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [dateValue, setDateValue] = useState([new Date(), new Date()]);
+  const [dateValue, setDateValue] = useState(new Date("2019-07-01"));
   useEffect(() => {
     console.log(dateValue);
   }, [dateValue]);
