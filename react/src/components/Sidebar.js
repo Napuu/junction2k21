@@ -7,15 +7,19 @@ import LevelPanel from './LevelPanel'
 import Stack from '@mui/material/Stack';
 
 
-const Sidebar = ({dateValue, setDateValue}) => (
+const Sidebar = ({state, setState}) => (
     <Stack
         direction="column"
         spacing='20px'
     >
         <SidebarHeader />
         <StatsPanel />
-        <DatePanel dateValue={dateValue} setDateValue={setDateValue} />
-        <LevelPanel />
+        <DatePanel dateValue={state.dateValue} setDateValue={(date) => {
+            setState({...state, dateValue: date});
+        }} />
+        <LevelPanel transmissionPower={state.transmissionPower} setTransmissionPower={(transmissionPower) => {
+            setState({...state, transmissionPower});
+        }} />
     </Stack>
 )
 

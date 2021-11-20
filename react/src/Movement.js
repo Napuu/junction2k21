@@ -4,8 +4,9 @@ import {GeoJsonLayer} from '@deck.gl/layers';
 import { useEffect, useState, useCallback } from 'react';
 import _ from "lodash";
 import polyline from '@mapbox/polyline';
+import {HeatmapLayer} from '@deck.gl/aggregation-layers';
 
-export default function Layer({ viewState, dateValue }) {
+export default function Layer({ viewState, state }) {
   const [divider, setDivider] = useState(3600 * 1000 * 24); // default to 24h
   const animationSpeed = 1;// 3600 * 1000 * 24 / 1500; // 24h has 1500 steps, total ~25s
   const [time, setTime] = useState(2000);
@@ -18,7 +19,7 @@ export default function Layer({ viewState, dateValue }) {
 
   const [data, setData] = useState([]);
   const [coverage, setCoverage] = useState({features: []});
-
+  const dateValue = state.dateValue;
   useEffect(() => {
     setData([
         {
@@ -65,22 +66,51 @@ export default function Layer({ viewState, dateValue }) {
     },
     [animation, animate]
   );
+  const getStyle = (transmissionPower) => {
+    if (transmissionPower === 1) {
+      return {
+        radiusPixels: 30,
+        intensity: 1.5,
+        threshold: 0.7
+      }
+    } else if (transmissionPower === 2) {
+      return {
+        radiusPixels: 20,
+        intensity: 0.5,
+        threshold: 0.5
+      }
+    } else if (transmissionPower === 3) {
+      return {
+        radiusPixels: 10,
+        intensity: 0.2,
+        threshold: 0.1
+      }
+    } else {
+      return {
+        radiusPixels: 20,
+        intensity: 0.5,
+        threshold: 0.5
+      }
+    }
+  }
+  const layer = new HeatmapLayer({
+    data: "/pointscov.json",
+    id: 'heatmp-layer',
+    pickable: false,
+    getPosition: d => [d[0], d[1]],
+    getWeight: d => 1,
+    colorRange: [
+      [254,237,222],
+      [253,208,162],
+      [253,174,107],
+      [253,141,60],
+      [230,85,13],
+      [166,54,3],
+    ],
+    opacity: 0.8,
+    ...getStyle(state.transmissionPower)
+  })
 
-  const layer = new GeoJsonLayer({
-    id: 'geojson-layer',
-    data: "/4G_tahtiluokka_3.json",
-    stroked: false,
-    filled: true,
-    extruded: true,
-    pointType: 'circle',
-    lineWidthScale: 20,
-    lineWidthMinPixels: 2,
-    getFillColor: [160, 160, 180, 200],
-    getLineColor: [0, 255, 0],
-    getPointRadius: 100,
-    getLineWidth: 1,
-    getElevation: 30
-  });
   const layer2 = new TripsLayer({
     id: 'trips-layer',
     data,
@@ -97,5 +127,5 @@ export default function Layer({ viewState, dateValue }) {
 
     shadowEnabled: false
   });
-  return <DeckGL useDevicePixels={false} viewState={viewState} layers={[layer2]} />;
+  return <DeckGL useDevicePixels={false} viewState={viewState} layers={[layer, layer2]} />;
 };

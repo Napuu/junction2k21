@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoicGFsaWtrIiwiYSI6ImNrdzZ2bDZ2YzBzZ3oydnJoODB4cmMzbmsifQ.ry-Lc5GvubrOySwQUtbjOg";
-function Map({dateValue}) {
+function Map({state}) {
   const location = useLocation();
   useEffect(() => {
     const index = basemaps.findIndex(b => b.title.toLocaleLowerCase() === location.pathname.split("/")[1]);
@@ -61,7 +61,7 @@ function Map({dateValue}) {
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={nextViewport => setViewport(nextViewport)}
       >
-        <Movement dateValue={dateValue} viewState={viewport} />
+        <Movement state={state} viewState={viewport} />
       </ReactMapGL>
     </div>
   </div>

@@ -10,7 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import SimpleRadio from './SimpleRadio';
 import SimpleRadioLabel from './SimpleRadioLabel';
 
-const LevelPanel = () => (
+const LevelPanel = ({transmissionPower, setTransmissionPower}) => (
     <Box
         sx={{
             bgcolor: '#1a1a1a',
@@ -37,6 +37,8 @@ const LevelPanel = () => (
                     }}/>
                     <FormControlLabel
                         labelPlacement="bottom"
+                        checked={transmissionPower === 1}
+                        onClick={() => setTransmissionPower(1)}
                         value="level1"
                         control={<SimpleRadio style={{ paddingLeft: 0 }} />}
                         label={<span />}
@@ -44,12 +46,16 @@ const LevelPanel = () => (
                     />
                     <FormControlLabel
                         labelPlacement="bottom"
+                        checked={transmissionPower === 2}
+                        onClick={() => setTransmissionPower(2)}
                         value="level2"
                         control={<SimpleRadio />}
                         label={<span />}
                     />
                     <FormControlLabel
                         labelPlacement="bottom"
+                        checked={transmissionPower === 3}
+                        onClick={() => setTransmissionPower(3)}
                         value="level3"
                         control={<SimpleRadio style={{ paddingRight: 0 }}/>}
                         label={<span />}
