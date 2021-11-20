@@ -42,14 +42,14 @@ const StatsPanel = () => {
         }}>
           <Box
             sx={{
-              color: 'error.dark',
+              color: 'white',
               fontWeight: 'bold',
               mx: 0.5,
             }}
           >
             -30 kW
           </Box>
-          <Box sx={{ color: 'error.dark', fontSize: 12, mx: 1, fontWeight: 'bold' }}>
+          <Box sx={{ color: 'white', fontSize: 12, mx: 1, fontWeight: 'bold' }}>
             due to rain
           </Box>
         </div>

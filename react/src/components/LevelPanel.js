@@ -25,8 +25,16 @@ const LevelPanel = () => (
         </Box>
 
         <FormControl margin='dense' fullWidth={true} component="fieldset">
-            <RadioGroup defaultValue="single" name="date-range-type-group">
+            <RadioGroup defaultValue="level1" name="date-range-type-group">
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{
+                        width: '100%', 
+                        height: '24px', 
+                        top: '5px', 
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)', 
+                        position: 'absolute',
+                        borderRadius: '50px',
+                    }}/>
                     <FormControlLabel
                         labelPlacement="bottom"
                         value="level1"
@@ -48,10 +56,10 @@ const LevelPanel = () => (
                         style={{ marginRight: 0 }}
                     />
                 </div>
-                <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                    <SimpleRadioLabel value="Left" style={{width: '30%'}} />
-                    <SimpleRadioLabel value="Middle" style={{width: '30%'}} />
-                    <SimpleRadioLabel value="Right" style={{width: '30%'}} />
+                <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '0px'}}>
+                    <SimpleRadioLabel value="Level 1" style={{ width: '30%', textAlign: 'left' }} />
+                    <SimpleRadioLabel value="Level 2" style={{ width: '30%', textAlign: 'center' }} />
+                    <SimpleRadioLabel value="Level 3" style={{ width: '30%', textAlign: 'right' }} />
                 </div>
                 <FormControlLabel
                     labelPlacement="end"
