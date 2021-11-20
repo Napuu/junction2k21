@@ -14,21 +14,18 @@ const getRoutes = async (date, zipcode) => {
   })
   client.connect()
 
-  const text = 'SELECT * FROM journeys WHERE j_date=$1 and kotipostinro=$2 LIMIT 100'
+  const text = 'SELECT * FROM journeys WHERE j_date=$1 and kotipostinro=$2 ORDER BY -lkm LIMIT 100'
   const values = [date, zipcode]
 
   let res;
   try {
     let journeys = await client.query(text, values)
-    // console.log(res.rows[0])
-    // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
-    //return res.rows[0]
     let ids = []
     journeys.rows.forEach(row => {
       ids.push(row["kotipostinro"] + row["postinro"])
     });
 
-    res = await client.query("SELECT * FROM route WHERE id in ('" + ids.join("','") + "')")
+    res = await client.query("SELECT id, ST_AsGeoJSON(geom) as geom FROM route WHERE id in ('" + ids.join("','") + "')")
 
 
   } catch (err) {
@@ -36,7 +33,7 @@ const getRoutes = async (date, zipcode) => {
     res = { "error": err.message }
   } finally {
     client.end()
-    return res
+    return res.rows
   }
 }
 
