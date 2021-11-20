@@ -6,8 +6,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DatePicker';
 
-const DatePicker = () => {
-    const [value, setValue] = useState([new Date(), new Date()]);
+const DatePicker = ({value, setValue}) => {
     const theme = createTheme({
         components: {
             MuiIconButton: {

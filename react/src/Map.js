@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoicGFsaWtrIiwiYSI6ImNrdzZ2bDZ2YzBzZ3oydnJoODB4cmMzbmsifQ.ry-Lc5GvubrOySwQUtbjOg";
-function Map() {
+function Map({dateValue}) {
   const location = useLocation();
   useEffect(() => {
     const index = basemaps.findIndex(b => b.title.toLocaleLowerCase() === location.pathname.split("/")[1]);
@@ -71,10 +71,7 @@ function Map() {
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={nextViewport => setViewport(nextViewport)}
       >
-        <Routes>
-        <Route path="/:basemap/ships" element={<Ships viewState={viewport} />} />
-        <Route path="/:basemap/kissa" element={<Movement viewState={viewport} />} />
-        </Routes>
+        <Movement dateValue={dateValue} viewState={viewport} />
       </ReactMapGL>
     </div>
   </div>

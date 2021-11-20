@@ -8,14 +8,14 @@ import Stack from '@mui/material/Stack';
 import TestBox from './TestBox'
 
 
-const Sidebar = () => (
+const Sidebar = ({dateValue, setDateValue}) => (
     <Stack
         direction="column"
         spacing='20px'
     >
         <SidebarHeader />
         <StatsPanel />
-        <DatePanel />
+        <DatePanel dateValue={dateValue} setDateValue={setDateValue} />
         <LevelPanel />
     </Stack>
 )

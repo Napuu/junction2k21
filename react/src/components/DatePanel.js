@@ -8,7 +8,7 @@ import SimpleRadio from './SimpleRadio';
 import SimpleRadioLabel from './SimpleRadioLabel';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import DatePicker from './DatePicker'
-const DatePanel = () => {
+const DatePanel = ({dateValue, setDateValue}) => {
     const theme = createTheme({
         typography: {
             body1: {
@@ -39,7 +39,7 @@ const DatePanel = () => {
                             label={
                                 <div style={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                                     <SimpleRadioLabel value="Single day" />
-                                    <DatePicker />
+                                    <DatePicker value={dateValue} setValue={setDateValue} />
                                 </div>
                             }
                         />
