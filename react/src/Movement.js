@@ -18,7 +18,7 @@ export default function Layer({ viewState, state }) {
   }, [animation, animationSpeed, divider]);
 
   const [data, setData] = useState([]);
-  const [coverage, setCoverage] = useState({features: []});
+  const [lkm, setLkm] = useState(0);
   const dateValue = state.dateValue;
   useEffect(() => {
     setData([
@@ -33,25 +33,42 @@ export default function Layer({ viewState, state }) {
     (async () => {
       if (!dateValue.toISOString) return;
       // const fetched = await fetch(`https://share.napuu.xyz/${dateValue.toISOString().slice(0, 10)}.geojson`);
-      const fetched = await fetch(`https://share.napuu.xyz/${dateValue.toISOString().slice(0, 10)}_poly`);
+      const poly = await fetch(`https://share.napuu.xyz/${dateValue.toISOString().slice(0, 10)}_poly`);
+      const lkm = await fetch(`https://share.napuu.xyz/${dateValue.toISOString().slice(0, 10)}_lkm`);
       // iterate through each row of fetched
-      const lines = (await fetched.text()).split("\n");
+      const lines_poly = (await poly.text()).split("\n").filter(line => line);
+      const lines_lkm = (await lkm.text()).split("\n").filter(line => line);
+      let maxLkm = 0;
       const routeJson = {
         "type": "FeatureCollection",
-        "features": lines.filter(line => line).map((line) => {
-          return polyline.toGeoJSON(line);
+        "features": _.zip(lines_poly, lines_lkm).map((zipped) => {
+          const poly = zipped[0];
+          const lkm = zipped[1];
+          maxLkm = Math.max(maxLkm, parseInt(lkm));
+          return {
+            ...polyline.toGeoJSON(poly),
+            properties: {
+              lkm: parseInt(lkm)
+            }
+          };
         })
       }
+      const lkm_clone = _.clone(lines_lkm).map(lkm => parseInt(lkm));
+      lkm_clone.sort();
+      setLkm(lkm_clone[Math.floor(lines_lkm.length / 2)]);
       const timestamps = routeJson.features.map(feature => {
         return _.range(0, feature.coordinates.length);
       });
       const data = _.zip(timestamps, routeJson.features).map(([timestamp, feature]) => {
+          console.log(feature);
         return {waypoints: _.zip(timestamp, feature.coordinates).map(([timestamp, coordinates]) => {
           return {
             coordinates,
-            timestamp
+            timestamp,
           };
-        })};
+        }),
+        lkm: feature.properties.lkm,
+      };
       });
       setDivider(timestamps.length);
       setTime(0)
@@ -116,12 +133,14 @@ export default function Layer({ viewState, state }) {
     data,
     getPath: d => d.waypoints.map(p => p.coordinates),
     getTimestamps: d => d.waypoints.map(p => p.timestamp),
-    getColor: [92, 181, 249],
+    // getColor: d => d.lkm > lkm ? [158,202,225] : [49,130,189],// [0, 181, 255 * (d.lkm / lkm)],
+    getColor: [92, 181 ,250],// [0, 181, 255 * (d.lkm / lkm)],
     opacity: 0.01,
-    widthMinPixels: 5,
+    widthMaxPixels: 8,
+    widthMinPixels: 3,
     rounded: true,
     fadeTrail: true,
-    getWidth: d => 5,
+    getWidth: d => d.lkm / 2,
     trailLength: animationSpeed * 150,
     currentTime: time,
 
