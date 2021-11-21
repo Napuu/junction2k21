@@ -5,40 +5,41 @@ import { useEffect, useState, useCallback } from 'react';
 import _ from "lodash";
 import polyline from "@mapbox/polyline";
 import { _MapContext } from 'react-map-gl';
+import { color } from '@mui/system';
 
 export default function Layer({ viewState }) {
   const [coverage, setCoverage] = useState({ features: [] });
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
     (async () => {
       const coverage = await fetch("/postinumeroalue_filtered1.geojson");
       const coverageJson = await coverage.json();
+
       setCoverage(coverageJson);
     })();
   }, []);
 
-  const layer = new GeoJsonLayer({
+  var layer = null
+  if (visible) layer = new GeoJsonLayer({
     id: 'geojson-layer',
     data: coverage,
-    stroked: true,
+    pickable: true,
+    stroked: false,
     filled: true,
     extruded: true,
     pointType: 'circle',
     lineWidthScale: 20,
     lineWidthMinPixels: 2,
-    getFillColor: d => d.properties.color ? d.properties.color : [160, 0, 180, 200],
-    getLineColor: [0, 255, 0, 255],
+    getFillColor: [160, 160, 180, 200],
+    getLineColor: [160, 0, 0, 200],
     getPointRadius: 100,
     getLineWidth: 1,
     getElevation: 30,
-    pickable: true,
-    onHover: (info, event) => {
-      console.log("hover", info, event)
-      if (info.object) {
-        info.object.properties["color"] = [255, 0, 0];
-      }
-    },
-    onClick: (info, event) => console.log("click", info, event),
+    autoHighlight: true,
+    onClick: (info, event) => {
+      setVisible(false)
+    }
   });
   return <DeckGL useDevicePixels={false} viewState={viewState} layers={[layer]} />;
 };

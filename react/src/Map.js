@@ -5,6 +5,7 @@ import { basemaps } from "./BasemapSelector";
 import Controls from './Controls';
 import Ships from "./experiments/Ships";
 import Movement from "./Movement";
+import Posti from "./Posti";
 import {
   Routes,
   Route,
@@ -12,7 +13,7 @@ import {
 } from "react-router-dom";
 
 const MAPBOX_TOKEN = "pk.eyJ1IjoicGFsaWtrIiwiYSI6ImNrdzZ2bDZ2YzBzZ3oydnJoODB4cmMzbmsifQ.ry-Lc5GvubrOySwQUtbjOg";
-function Map({dateValue}) {
+function Map({ dateValue }) {
   const location = useLocation();
   useEffect(() => {
     const index = basemaps.findIndex(b => b.title.toLocaleLowerCase() === location.pathname.split("/")[1]);
@@ -61,10 +62,12 @@ function Map({dateValue}) {
         mapboxApiAccessToken={MAPBOX_TOKEN}
         onViewportChange={nextViewport => setViewport(nextViewport)}
       >
-        <Movement dateValue={dateValue} viewState={viewport} />
+        <Posti viewState={viewport} />
       </ReactMapGL>
     </div>
   </div>
   );
 }
 export default Map;
+
+// import Movement from "./Movement";
