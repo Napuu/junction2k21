@@ -83,7 +83,7 @@ export default function Layer({ viewState, state }) {
     [animation, animate]
   );
   const getStyle = (transmissionPower) => {
-    if (transmissionPower === 1) {
+    if (transmissionPower === 1 || transmissionPower === 4) {
       return {
         radiusPixels: 30,
         intensity: 1.5,
@@ -110,7 +110,7 @@ export default function Layer({ viewState, state }) {
     }
   }
   const layer = new HeatmapLayer({
-    data: "/pointscov.json",
+    data: state.transmissionPower === 4 ? "/pointsopt2.json" : "/pointscov.json",
     id: 'heatmp-layer',
     pickable: false,
     getPosition: d => [d[0], d[1]],
@@ -141,7 +141,7 @@ export default function Layer({ viewState, state }) {
     fadeTrail: true,
     getWidth: d => d.lkm / 2,
     trailLength: animationSpeed * 150,
-    currentTime: ((time === new Date("2019-11-15") && state.transmissionPower === 4) ? new Date("2019-12-15"): time),
+    currentTime: state.transmissionPower === 4 ? 150 : time,
     shadowEnabled: false
   });
   return <DeckGL useDevicePixels={false} viewState={viewState} layers={[layer, layer2]} />;

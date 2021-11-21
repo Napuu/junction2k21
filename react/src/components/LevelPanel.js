@@ -8,7 +8,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import SimpleRadio from './SimpleRadio';
+import { Tooltip } from '@material-ui/core';
 import SimpleRadioLabel from './SimpleRadioLabel';
+import infoIcon from '../assets/information.png';
 
 const LevelPanel = ({transmissionPower, setTransmissionPower}) => (
     <Box
@@ -73,7 +75,14 @@ const LevelPanel = ({transmissionPower, setTransmissionPower}) => (
                     checked={transmissionPower === 4}
                     onClick={() => setTransmissionPower(4)}
                     control={<SimpleRadio />}
-                    label={<SimpleRadioLabel value="BLIP™ Optimized" />}
+                    label={<SimpleRadioLabel value={<>
+                        {"BLIP™ Optimized"}
+                        <Tooltip
+                            title={"Perfect combination of power savings and customer happiness (animation frozen on purpose)"}
+                        >
+                        <img src={infoIcon} alt="info" width='20px' height='20px' style={{ marginLeft: '7px', marginBottom: '-5px' }} />
+                        </Tooltip>
+                    </>} />}
                 />
             </RadioGroup>
         </FormControl>

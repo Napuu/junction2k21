@@ -13,7 +13,7 @@ const StatsPanel = ({ transmissionPower, dateValue }) => {
     if (transmissionPower === 1) return ("65%")
     if (transmissionPower === 2) return ("80%")
     if (transmissionPower === 3) return ("90%")
-    if (transmissionPower === 4) return ("94%")
+    if (transmissionPower === 4) return ("89%")
 
   }
 
@@ -21,7 +21,7 @@ const StatsPanel = ({ transmissionPower, dateValue }) => {
     if (transmissionPower === 1) return (927)
     if (transmissionPower === 2) return (521)
     if (transmissionPower === 3) return (0)
-    if (transmissionPower === 4) return (1230)
+    if (transmissionPower === 4) return (829)
   }
 
   
