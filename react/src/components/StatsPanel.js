@@ -10,7 +10,7 @@ const infoBox = `Calculated using proprietary BLIP™ algorithm.`
 
 const StatsPanel = ({ transmissionPower, dateValue }) => {
   const calculateHappiness = () => {
-    if (transmissionPower === 1) return ("-1%")
+    if (transmissionPower === 1) return ("65%")
     if (transmissionPower === 2) return ("80%")
     if (transmissionPower === 3) return ("90%")
 
@@ -24,7 +24,7 @@ const StatsPanel = ({ transmissionPower, dateValue }) => {
 
   const dateValueDay = dateValue.toISOString().split("T")[0];
   const saving = 800;
-  const weatherLoss = (conditions[dateValueDay].vis * saving + conditions[dateValueDay].temp * saving).toFixed(2)
+  const weatherLoss = (conditions[dateValueDay].vis * saving + conditions[dateValueDay].temp * saving).toFixed(0)
   return (
     <Box
       sx={{
