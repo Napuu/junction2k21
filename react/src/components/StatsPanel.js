@@ -11,6 +11,7 @@ import conditions from "../conditions.json";
 const StatsPanel = ({dateValue}) => {
   const dateValueDay = dateValue.toISOString().split("T")[0];
   const saving = 800;
+  const weatherLoss = (conditions[dateValueDay].vis * saving + conditions[dateValueDay].temp * saving).toFixed(2)
   return (
     <Box
       sx={{
@@ -32,7 +33,7 @@ const StatsPanel = ({dateValue}) => {
         Power savings per hour
       </Box>
       <Box sx={{ color: 'white', fontSize: 48, fontWeight: 'bold', lineHeight: '60px', marginBottom: '5px' }}>
-        500 kW
+        {500 - weatherLoss} kW
       </Box>
 
       <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -55,7 +56,7 @@ const StatsPanel = ({dateValue}) => {
               mx: 0.5,
             }}
           >
-            -{(conditions[dateValueDay].vis * saving + conditions[dateValueDay].temp * saving).toFixed(2)} kW
+            -{weatherLoss} kW
           </Box>
           <Box sx={{ color: 'white', fontSize: 12, mx: 1, fontWeight: 'bold' }}>
             due to rain
