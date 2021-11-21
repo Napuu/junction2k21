@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 function App() {
   const [state, setState] = useState({
-    dateValue: new Date("2019-07-01"),
+    dateValue: new Date("2019-11-15"),
     transmissionPower: 2
   });
   return (

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
@@ -6,7 +6,11 @@ import sunIcon from '../assets/wi-day-sunny.svg';
 import rainIcon from '../assets/wi-showers.svg';
 import infoIcon from '../assets/information.png';
 
-const StatsPanel = () => {
+import conditions from "../conditions.json";
+
+const StatsPanel = ({dateValue}) => {
+  const dateValueDay = dateValue.toISOString().split("T")[0];
+  const saving = 800;
   return (
     <Box
       sx={{
@@ -51,7 +55,7 @@ const StatsPanel = () => {
               mx: 0.5,
             }}
           >
-            -30 kW
+            -{(conditions[dateValueDay].vis * saving + conditions[dateValueDay].temp * saving).toFixed(2)} kW
           </Box>
           <Box sx={{ color: 'white', fontSize: 12, mx: 1, fontWeight: 'bold' }}>
             due to rain
