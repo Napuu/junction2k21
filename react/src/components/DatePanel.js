@@ -35,6 +35,7 @@ const DatePanel = ({dateValue, setDateValue}) => {
                     <ThemeProvider theme={theme}>
                         <FormControlLabel
                             value="single"
+                            checked={true}
                             control={<SimpleRadio />}
                             label={
                                 <div style={{ width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -46,6 +47,7 @@ const DatePanel = ({dateValue, setDateValue}) => {
                     </ThemeProvider>
                     <FormControlLabel
                         value="all"
+                        checked={false}
                         control={<SimpleRadio />}
                         label={<SimpleRadioLabel value="All data (soon™)" />}
                     />

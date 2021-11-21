@@ -13,7 +13,7 @@ const Sidebar = ({state, setState}) => (
         spacing='20px'
     >
         <SidebarHeader />
-        <StatsPanel transmissionPower={state.transmissionPower} />
+        <StatsPanel transmissionPower={state.transmissionPower} dateValue={state.dateValue} />
         <DatePanel dateValue={state.dateValue} setDateValue={(date) => {
             setState({...state, dateValue: date});
         }} />

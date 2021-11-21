@@ -1,14 +1,14 @@
-import * as React from 'react';
+import React from 'react';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import sunIcon from '../assets/wi-day-sunny.svg';
 import rainIcon from '../assets/wi-showers.svg';
 import infoIcon from '../assets/information.png';
-
+import conditions from "../conditions.json";
 const infoBox = `Calculated using proprietary BLIP™ algorithm.`
 
-const StatsPanel = ({transmissionPower}) => {
+const StatsPanel = ({ transmissionPower, dateValue }) => {
   const calculateHappiness = () => {
     if (transmissionPower === 1) return ("-1%")
     if (transmissionPower === 2) return ("80%")
@@ -17,11 +17,14 @@ const StatsPanel = ({transmissionPower}) => {
   }
 
   const calculateWatt = () => {
-    if (transmissionPower === 1) return ("927 kw")
-    if (transmissionPower === 2) return ("521 kW")
-    if (transmissionPower === 3) return ("0 kW")
+    if (transmissionPower === 1) return (927)
+    if (transmissionPower === 2) return (521)
+    if (transmissionPower === 3) return (0)
   }
 
+  const dateValueDay = dateValue.toISOString().split("T")[0];
+  const saving = 800;
+  const weatherLoss = (conditions[dateValueDay].vis * saving + conditions[dateValueDay].temp * saving).toFixed(2)
   return (
     <Box
       sx={{
@@ -43,8 +46,8 @@ const StatsPanel = ({transmissionPower}) => {
         Power savings per hour
       </Box>
       <Box sx={{ color: 'white', fontSize: 48, fontWeight: 'bold', lineHeight: '60px', marginBottom: '5px' }}>
-        {calculateWatt().toString()}
-      </Box>
+        {calculateWatt() - weatherLoss} kW
+      </Box >
 
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <Box
@@ -66,19 +69,19 @@ const StatsPanel = ({transmissionPower}) => {
               mx: 0.5,
             }}
           >
-            -30 kW
+            -{weatherLoss} kW
           </Box>
           <Box sx={{ color: 'white', fontSize: 12, mx: 1, fontWeight: 'bold' }}>
             due to weather
           </Box>
         </div>
-        <Tooltip 
+        <Tooltip
           title={infoBox}
         >
-          <img src={infoIcon} alt="info" width='20px' height='20px' style={{ marginLeft: '12px', marginTop: '17px' }}/>
+          <img src={infoIcon} alt="info" width='20px' height='20px' style={{ marginLeft: '12px', marginTop: '17px' }} />
         </Tooltip>
       </div>
-    </Box>
+    </Box >
   );
 }
 
