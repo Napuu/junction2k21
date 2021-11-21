@@ -141,8 +141,7 @@ export default function Layer({ viewState, state }) {
     fadeTrail: true,
     getWidth: d => d.lkm / 2,
     trailLength: animationSpeed * 150,
-    currentTime: time,
-
+    currentTime: ((time === new Date("2019-11-15") && state.transmissionPower === 4) ? new Date("2019-12-15"): time),
     shadowEnabled: false
   });
   return <DeckGL useDevicePixels={false} viewState={viewState} layers={[layer, layer2]} />;

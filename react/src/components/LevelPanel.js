@@ -70,6 +70,8 @@ const LevelPanel = ({transmissionPower, setTransmissionPower}) => (
                 <FormControlLabel
                     labelPlacement="end"
                     value="blip"
+                    checked={transmissionPower === 4}
+                    onClick={() => setTransmissionPower(4)}
                     control={<SimpleRadio />}
                     label={<SimpleRadioLabel value="BLIP™ Optimized" />}
                 />
