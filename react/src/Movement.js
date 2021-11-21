@@ -60,7 +60,6 @@ export default function Layer({ viewState, state }) {
         return _.range(0, feature.coordinates.length);
       });
       const data = _.zip(timestamps, routeJson.features).map(([timestamp, feature]) => {
-          console.log(feature);
         return {waypoints: _.zip(timestamp, feature.coordinates).map(([timestamp, coordinates]) => {
           return {
             coordinates,
