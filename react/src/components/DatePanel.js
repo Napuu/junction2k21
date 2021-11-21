@@ -47,17 +47,12 @@ const DatePanel = ({dateValue, setDateValue}) => {
                     <FormControlLabel
                         value="all"
                         control={<SimpleRadio />}
-                        label={<SimpleRadioLabel value="All data" />}
+                        label={<SimpleRadioLabel value="All data (soon™)" />}
                     />
                 </RadioGroup>
             </FormControl>
         </Box>
     )
 }
-
-
-
-
-
 
 export default DatePanel;

@@ -2,6 +2,7 @@
   "name": "layers",
   "version": "0.1.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@deck.gl/geo-layers": "^8.6.4",
     "@deck.gl/layers": "^8.6.3",

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import sunIcon from '../assets/wi-day-sunny.svg';
 import rainIcon from '../assets/wi-showers.svg';
+import infoIcon from '../assets/information.png';
 
 const StatsPanel = () => {
   return (
@@ -55,11 +57,10 @@ const StatsPanel = () => {
             due to rain
           </Box>
         </div>
+        <Tooltip title="Lörs lärä. Lorem ipsum yolo">
+          <img src={infoIcon} alt="info" width='20px' height='20px' style={{ marginLeft: '12px', marginTop: '17px' }}/>
+        </Tooltip>
       </div>
-
-
-
-
     </Box>
   );
 }
