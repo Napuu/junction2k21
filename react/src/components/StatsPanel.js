@@ -1,12 +1,12 @@
 import React from 'react';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
-import sunIcon from '../assets/wi-day-sunny.svg';
-import rainIcon from '../assets/wi-showers.svg';
+import starIcon from '../assets/wi-stars.svg';
+import fogIcon from '../assets/wi-day-fog.svg';
+import dayCloudyIcon from '../assets/wi-day-cloudy.svg';
 import infoIcon from '../assets/information.png';
 import conditions from "../conditions.json";
-const infoBox = `Calculated using proprietary BLIP™ algorithm.`
+const infoBox = `Calculated using proprietary BLIP™ algorithm`
 
 const StatsPanel = ({ transmissionPower, dateValue }) => {
   const calculateHappiness = () => {
@@ -22,9 +22,20 @@ const StatsPanel = ({ transmissionPower, dateValue }) => {
     if (transmissionPower === 3) return (0)
   }
 
+  
+
   const dateValueDay = dateValue.toISOString().split("T")[0];
   const saving = 800;
   const weatherLoss = (conditions[dateValueDay].vis * saving + conditions[dateValueDay].temp * saving).toFixed(2)
+  const getWeatherIcon = () => {
+    if (weatherLoss > 0) {
+      return starIcon
+    } else if (weatherLoss === 0) {
+      return dayCloudyIcon
+    } else {
+      return fogIcon
+    }
+  }
   return (
     <Box
       sx={{
@@ -46,14 +57,14 @@ const StatsPanel = ({ transmissionPower, dateValue }) => {
         Power savings per hour
       </Box>
       <Box sx={{ color: 'white', fontSize: 48, fontWeight: 'bold', lineHeight: '60px', marginBottom: '5px' }}>
-        {calculateWatt() - weatherLoss} kW
+        {calculateWatt()} kW
       </Box >
 
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <Box
           sx={{ width: "50px" }}
         >
-          <img src={rainIcon} alt="rainIcon" />
+          <img src={getWeatherIcon()} width="40px" alt="weatherIcon" />
         </Box>
         <div style={{
           display: 'flex',
@@ -69,10 +80,10 @@ const StatsPanel = ({ transmissionPower, dateValue }) => {
               mx: 0.5,
             }}
           >
-            -{weatherLoss} kW
+           {weatherLoss < 0 ? "" : "+"}{weatherLoss} kW
           </Box>
-          <Box sx={{ color: 'white', fontSize: 12, mx: 1, fontWeight: 'bold' }}>
-            due to weather
+          <Box sx={{ color: 'white', fontSize: 11, mx: 1, fontWeight: 'bold' }}>
+            due to {weatherLoss < 0 ? "bad" : "good"} weather
           </Box>
         </div>
         <Tooltip
