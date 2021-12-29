@@ -1,6 +1,6 @@
 # junction2k21
 
-![This is an image](/react/public/metaimage.png)
+![This is an image](/public/metaimage.png)
 
 Are you wasting your money on transmitting where nobody's listening?
 Are you shittening the environment?
