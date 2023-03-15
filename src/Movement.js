@@ -33,8 +33,8 @@ export default function Layer({ viewState, state }) {
     (async () => {
       if (!dateValue.toISOString) return;
       // const fetched = await fetch(`https://share.napuu.xyz/${dateValue.toISOString().slice(0, 10)}.geojson`);
-      const poly = await fetch(`https://share.napuu.xyz/${dateValue.toISOString().slice(0, 10)}_poly`);
-      const lkm = await fetch(`https://share.napuu.xyz/${dateValue.toISOString().slice(0, 10)}_lkm`);
+      const poly = await fetch("/junction2k21/2019-11-04_poly");
+      const lkm = await fetch("/junction2k21/2019-11-04_lkm");
       // iterate through each row of fetched
       const lines_poly = (await poly.text()).split("\n").filter(line => line);
       const lines_lkm = (await lkm.text()).split("\n").filter(line => line);
@@ -110,7 +110,7 @@ export default function Layer({ viewState, state }) {
     }
   }
   const layer = new HeatmapLayer({
-    data: state.transmissionPower === 4 ? "/pointsopt2.json" : "/pointscov.json",
+    data: state.transmissionPower === 4 ? "/junction2k21/pointsopt2.json" : "/junction2k21/pointscov.json",
     id: 'heatmp-layer',
     pickable: false,
     getPosition: d => [d[0], d[1]],
